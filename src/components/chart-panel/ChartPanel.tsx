@@ -1,5 +1,6 @@
 import "./ChartPanel.css";
-import LineChart from "./LineChart/LineChart";
+import LineChart from "../line-chart/LineChart";
+import { useConverter } from "../../hooks/useConverter";
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
@@ -22,8 +23,11 @@ export const data = {
 };
 
 function ChartPanel() {
+  const converter: any = useConverter();
+
   return (
     <div className="panel">
+      {converter && <p>{converter._fromCelsiusToFahrenheit(11)}</p>}
       <LineChart data={data}></LineChart>
     </div>
   );

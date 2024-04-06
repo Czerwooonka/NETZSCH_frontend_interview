@@ -1,5 +1,5 @@
 import "./App.css";
-import ChartPanel from "./components/ChartPanel";
+import ChartPanel from "./components/chart-panel/ChartPanel";
 
 function App() {
   return (
