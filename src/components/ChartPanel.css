@@ -1,0 +1,10 @@
+.panel {
+    padding: 10px;
+    height: 40vmin;
+    width: 70vmin;
+    border: 3px solid #61dafb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

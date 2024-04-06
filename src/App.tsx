@@ -1,11 +1,10 @@
 import "./App.css";
+import ChartPanel from "./components/ChartPanel";
 
 function App() {
   return (
     <div className="App">
-      <div className="panel">
-        <p>Displaing chart</p>
-      </div>
+      <ChartPanel></ChartPanel>
     </div>
   );
 }
