@@ -10,3 +10,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.options {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.m-5 {
+  margin-left: 5px;
+}

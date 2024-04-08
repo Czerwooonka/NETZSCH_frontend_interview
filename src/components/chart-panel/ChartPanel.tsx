@@ -1,34 +1,61 @@
 import "./ChartPanel.css";
-import LineChart from "../line-chart/LineChart";
+import LineChart from "../temperature-line-chart/TemperatureLineChart";
 import { useConverter } from "../../hooks/useConverter";
-
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [1, 2, 3, 4, 5, 6, 7],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-    {
-      label: "Dataset 2",
-      data: [7, 6, 5, 4, 3, 2, 1],
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
-    },
-  ],
-};
+import { useFetch } from "../../hooks/useFetch";
+import { ChangeEvent, useState } from "react";
+import { MONTHS } from "../../utils/constants";
 
 function ChartPanel() {
+  const [selectedMonth, setSelectedMonth] = useState(MONTHS.JANUARY);
+  let selectedUnit = "°C";
   const converter: any = useConverter();
+  const [data, fetching, error] = useFetch(
+    `https://my-json-server.typicode.com/Czerwooonka/netzsch_database/temp/${selectedMonth}`
+  );
 
   return (
     <div className="panel">
-      {converter && <p>{converter._fromCelsiusToFahrenheit(11)}</p>}
-      <LineChart data={data}></LineChart>
+      <p>Temperatures in Kraków in 2023</p>
+      <div className="options">
+        <select
+          name="months"
+          id="months"
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            setSelectedMonth(e.target.value)
+          }
+        >
+          {Object.keys(MONTHS).map((key) => (
+            <option key={key} value={MONTHS[key]}>
+              {key}
+            </option>
+          ))}
+        </select>
+        {converter && (
+          <>
+            {/* <label htmlFor="cars">
+            Choose a car:{selectedMonth}
+            {converter._fromCelsiusToFahrenheit(11)}
+          </label> */}
+
+            <select
+              className="m-5"
+              name="unit"
+              id="unit"
+              onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                (selectedUnit = e.target.value)
+              }
+            >
+              <option key="celsius" value="°C">
+                °C
+              </option>
+              <option key="fahrenheit" value="°F">
+                °F
+              </option>
+            </select>
+          </>
+        )}
+      </div>
+      {data && <LineChart data={data}></LineChart>}
     </div>
   );
 }
