@@ -9,9 +9,14 @@ export const useFetch = (url: string) => {
     const fetchData = async (): Promise<void> => {
       try {
         const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-        setData(data);
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setData(data);
+        } else {
+          const text = await response.text();
+          throw Error(text);
+        }
       } catch (error) {
         setError(error);
       } finally {
