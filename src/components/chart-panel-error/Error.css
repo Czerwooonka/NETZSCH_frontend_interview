@@ -2,12 +2,12 @@
   .error-wraper {
     background: #282c34 !important;
     box-shadow: inset 0 0 400px #282c34;
-    height: 100vh;
     width: 100%;
     overflow: hidden;
     position: relative;
     display: flex;
     justify-content: center;
+    flex-grow: 1;
   }
 
   .error-text {

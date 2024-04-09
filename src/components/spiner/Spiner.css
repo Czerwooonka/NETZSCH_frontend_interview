@@ -1,8 +1,8 @@
 
 .spiner-wraper {
-    height: 100%;
     display: flex;
     align-items: center;
+    flex-grow: 1;
 }
 
 .lds-roller,
