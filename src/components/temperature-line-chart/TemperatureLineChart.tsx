@@ -7,10 +7,16 @@ import {
   Title,
   CategoryScale,
 } from "chart.js";
-import type { ChartData, ChartOptions } from "chart.js";
+import type { ChartData } from "chart.js";
 import { useConverter } from "../../hooks/useConverter";
 import { MONTHS } from "../../utils/constants";
-import { ChangeEvent, Dispatch, SetStateAction, useRef } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from "react";
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Title);
 
@@ -31,7 +37,8 @@ const TemperatureLineChart = ({
   setSelectedMonth,
 }: TemperatureLineChartProps) => {
   const converter: any = useConverter();
-  const chartRef = useRef<ChartJS<"line">>();
+  const chartRef = useRef<ChartJS<"line">>(null);
+  const selectUnitRef = useRef<HTMLSelectElement>(null);
   const chartData: ChartData<"line"> = {
     labels: Array.from(Array(data.temps.length).keys(), (e, i) => i + 1),
     datasets: [
@@ -43,6 +50,12 @@ const TemperatureLineChart = ({
       },
     ],
   };
+
+  useEffect(() => {
+    if (selectUnitRef.current) {
+      selectUnitRef.current.value = "°C";
+    }
+  }, [data]);
 
   const handleUnitChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (chartRef.current) {
@@ -59,7 +72,6 @@ const TemperatureLineChart = ({
     }
   };
 
-  console.log("chartData", chartData);
   return (
     <>
       <div className="options">
@@ -77,21 +89,20 @@ const TemperatureLineChart = ({
           ))}
         </select>
         {converter && (
-          <>
-            <select
-              className="m-5"
-              name="unit"
-              id="unit"
-              onChange={handleUnitChange}
-            >
-              <option key="celsius" value="°C">
-                °C
-              </option>
-              <option key="fahrenheit" value="°F">
-                °F
-              </option>
-            </select>
-          </>
+          <select
+            className="m-5"
+            name="unit"
+            id="unit"
+            ref={selectUnitRef}
+            onChange={handleUnitChange}
+          >
+            <option key="celsius" value="°C">
+              °C
+            </option>
+            <option key="fahrenheit" value="°F">
+              °F
+            </option>
+          </select>
         )}
       </div>
       <Line ref={chartRef} data={chartData} />
