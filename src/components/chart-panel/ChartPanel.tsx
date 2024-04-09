@@ -13,7 +13,7 @@ function ChartPanel() {
   );
 
   return (
-    <div className="panel">
+    <div className="panel big medium small">
       <p>Temperatures in Kraków in 2023</p>
       {error && <Error />}
       {fetching && <Spiner />}

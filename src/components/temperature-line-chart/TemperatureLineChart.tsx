@@ -1,3 +1,4 @@
+import "./TemperatureLineChart.css";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -74,35 +75,40 @@ const TemperatureLineChart = ({
 
   return (
     <>
-      <div className="options">
-        <select
-          name="months"
-          id="months"
-          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            setSelectedMonth(e.target.value)
-          }
-        >
-          {Object.keys(MONTHS).map((key) => (
-            <option key={key} value={MONTHS[key]}>
-              {key}
-            </option>
-          ))}
-        </select>
-        {converter && (
+      <div className="options options-big">
+        <div className="item">
           <select
-            className="m-5"
-            name="unit"
-            id="unit"
-            ref={selectUnitRef}
-            onChange={handleUnitChange}
+            className="select-item"
+            name="months"
+            id="months"
+            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+              setSelectedMonth(e.target.value)
+            }
           >
-            <option key="celsius" value="°C">
-              °C
-            </option>
-            <option key="fahrenheit" value="°F">
-              °F
-            </option>
+            {Object.keys(MONTHS).map((key) => (
+              <option key={key} value={MONTHS[key]}>
+                {key}
+              </option>
+            ))}
           </select>
+        </div>
+        {converter && (
+          <div className="item">
+            <select
+              className="select-item"
+              name="unit"
+              id="unit"
+              ref={selectUnitRef}
+              onChange={handleUnitChange}
+            >
+              <option key="celsius" value="°C">
+                °C
+              </option>
+              <option key="fahrenheit" value="°F">
+                °F
+              </option>
+            </select>
+          </div>
         )}
       </div>
       <Line ref={chartRef} data={chartData} />

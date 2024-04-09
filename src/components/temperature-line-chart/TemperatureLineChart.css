@@ -1,0 +1,22 @@
+
+.options {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+  }
+
+  @media only screen and (max-width: 400px) {
+    
+  .item {
+    flex: 1 1 0;
+  }
+  .select-item {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 400px) {
+    .options-big {
+        justify-content: flex-end;
+    }
+  }

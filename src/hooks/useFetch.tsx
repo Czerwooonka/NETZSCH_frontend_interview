@@ -11,7 +11,6 @@ export const useFetch = (url: string) => {
         const response = await fetch(url);
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setData(data);
         } else {
           const text = await response.text();
